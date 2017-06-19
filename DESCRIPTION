@@ -1,0 +1,34 @@
+Package: NMADAS
+Type: Package
+Title: Arm-Based Network Meta-Analaysis of Diagnostic Accuracy Studies
+Version: 0.0.1
+Maintainer: The package maintainer <victoria.nyaga@outlook.com>
+Description: Network meta-analysis procedure combining and summarising direct and indirect evidence from 
+    independent studies assessing the diagnostic accuracy of different tests for the same 
+    disease condition.  
+License: License: GPL-2
+Encoding: UTF-8
+#Date: 2017-06-15 #yyyy-mm-dd
+Authors@R: person("Victoria", "N Nyaga", email="victoria.nyaga@outlook.com", role=c("aut", "cre"))
+Depends:
+    R (>= 3.3.2),
+    rstan (>= 2.14.1)
+Imports:
+    methods,
+    ggplot2 (>= 2.2.1),
+    plyr (>= 1.8.4),
+    stats (>= 3.2.2),
+    reshape2 (>= 1.4.2),
+    grDevices (>= 3.2.2)
+LazyData: TRUE
+Suggests:
+    testthat,
+    knitr,
+    loo,
+    Rmisc,
+    httr,
+    bayesplot,
+    rmarkdown
+#VignetteBuilder: knitr
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr

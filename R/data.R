@@ -1,0 +1,35 @@
+#' demodata
+#'
+#' A series of diagnostic studies from published meta-analyses (see references) assessing various
+#' diagnostic tests detecting CIN2+ in women with ASC-US cytology. This dataset
+#' includes `all' published studies including studies that assessed only one diagnostic test without a comparator.
+#'
+#' @format A data frame of 121 observations and 6 variables:
+#' \describe{
+#'  \item{Study}{Study identifier}
+#'  \item{TP}{Number of true positives}
+#'  \item{FN}{Number of false negatives}
+#'  \item{TN}{Number of true negatives}
+#'  \item{FP}{Number of false positives}
+#' }
+#' @docType data
+#' @name demodata
+#' @usage data(demodata)
+#' @references {Arbyn M, Buntinx F, Ranst MV, Paraskevaidis E, Martin-Hirsch P, Dillner J.
+#' Virologic versus cytologic triage of women with equivocal Pap smears: a meta-analysis of the accuracy to detect high-grade intraepithelial neoplasia.
+#' JNCI: Journal of the National Cancer Institute. 2004 Feb 18;96(4):280-93.}
+#' @references {Arbyn M, Ronco G, Anttila A, Meijer CJ, Poljak M, Ogilvie G, Koliopoulos G, Naucler P, Sankaranarayanan R, Peto J.
+#' Evidence regarding human papillomavirus testing in secondary prevention of cervical cancer. Vaccine. 2012 Nov 20;30:F88-99.}
+#' @references {Arbyn M, Roelens J, Simoens C, Buntinx F, Paraskevaidis E, Martin‐Hirsch PP, Prendiville WJ.
+#' Human papillomavirus testing versus repeat cytology for triage of minor cytological cervical lesions.
+#' The Cochrane Library. 2013.}
+#' @references {Arbyn M, Roelens J, Cuschieri K, Cuzick J, Szarewski A, Ratnam S, Reuschenbach M, Belinson S, Belinson JL, Monsonego J.
+#' The APTIMA HPV assay versus the hybrid capture 2 test in triage of women with ASC‐US or LSIL cervical cytology: A meta‐analysis of the diagnostic accuracy.
+#' International journal of cancer. 2013 Jan 1;132(1):101-8.}
+#' @references {Roelens J, Reuschenbach M, von Knebel Doeberitz M, Wentzensen N, Bergeron C, Arbyn M.
+#' p16INK4a immunocytochemistry versus human papillomavirus testing for triage of women with minor cytologic abnormalities.
+#' Cancer cytopathology. 2012 Oct 25;120(5):294-307.}
+#' @references {Verdoodt F, Szarewski A, Halfon P, Cuschieri K, Arbyn M.
+#' Triage of women with minor abnormal cervical cytology: Meta‐analysis of the accuracy of an assay targeting messenger ribonucleic acid of 5 high‐risk human papillomavirus types.
+#' Cancer cytopathology. 2013 Dec 1;121(12):675-87.}
+NULL
