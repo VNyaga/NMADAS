@@ -8,6 +8,8 @@
 #' @param textsize Size of the texts.
 #' @param dodgewidth An optional numeric value to adjust the dogding position. The default is 1. See \link[ggplot2]{position_dodge}.
 #' @param dp An optional positive value to control the number of digits to print when printing numeric values. The default is 2.
+#' @param vline colour of the line at RR = 1. By default it is "blue".
+#' @param textlabel The text that appear below the plots. By default it is "Mean [95\% CI]".
 #' @param ... other \link[rstan]{stan} options.
 #' @return A forestplot by ggplot2.
 
@@ -15,17 +17,21 @@
 #' \dontrun{
 #' data(demodata)
 #'
-#' fit1 <- fit(S.ID='study',
+#' frank <- nmadasmodel()
+#'
+#' fit1 <- fit(
+#'         nma.model = frank,
+#'         S.ID='study',
 #'			   T.ID = 'Test',
 #'			   tp = 'TP',
 #'			   tn = 'TN',
 #'			   fp = 'FP',
 #'			   fn = 'FN',
-#'         data = demodata,
-#'         iter = 6000,
-#'         warmup = 2000,
-#'         thin = 5,
-#'         seed = 3)
+#'             data = demodata,
+#'             iter = 6000,
+#'             warmup = 2000,
+#'             thin = 5,
+#'             seed = 3)
 #'
 #'
 #' forestplot(fit1)
@@ -35,7 +41,7 @@
 #' @references {Vehtari A, Gelman A (2014). WAIC and Cross-validation in Stan. Unpublished, pp. 1-14.}
 #' @export
 #' @author Victoria N Nyaga <victoria.nyaga@outlook.com>
-forestplot.nmadas <- function(object,
+forestplot.nmadasfit <- function(object,
                               vlinecolour = "blue",
                               textsize = 4,
                               pointcolour = "grey70",
@@ -46,6 +52,14 @@ forestplot.nmadas <- function(object,
                               RR = TRUE,
                               ...
                               ){
+
+ Test <- NULL
+ Mean <- NULL
+ Lower <- NULL
+ Upper <- NULL
+ Text <- NULL
+ SID <- NULL
+ TID <- NULL
   ##########################################################################################
   object@data$Sensitivity <- object@data$TP/object@data$Dis
   object@data$Specificity <- object@data$TN/object@data$NDis
@@ -57,7 +71,7 @@ forestplot.nmadas <- function(object,
 
   sm <- summary.nmadasfit(object, ...)
 
-  dodge <- position_dodge(width = dodgewidth)
+  dodge <- ggplot2::position_dodge(width = dodgewidth)
   #==================================================================================================
 
   sm$MU$MU.Mean <- formattable::formattable(sm$MU$Mean, digits = dp, format = "f")
@@ -67,60 +81,60 @@ forestplot.nmadas <- function(object,
 
   sm$MU$Test <- as.numeric(factor(sm$MU$Test))
 
-  MU.plot <- ggplot(data=sm$MU,
-                aes(x = as.factor(Test),
+  MU.plot <- ggplot2::ggplot(data=sm$MU,
+                             ggplot2::aes(x = as.factor(Test),
                     y = Mean)) +
-    geom_point(data=longdata,
-               aes(x = Test,
-                   y = Mean),
+    ggplot2::geom_point(data=longdata,
+                ggplot2::aes(x = Test,
+                y = Mean),
                size = pointsize,
                shape = 21,
                fill = 'white',
                colour = pointcolour) +
-      coord_flip(expand=TRUE) +
-    scale_x_discrete(name="",
+    ggplot2::coord_flip(expand=TRUE) +
+    ggplot2::scale_x_discrete(name="",
                      labels=object@labels) +
 
-      facet_grid(~ Parameter) +
-      geom_point(position=dodge,
+    ggplot2::facet_grid(~ Parameter) +
+    ggplot2::geom_point(position=dodge,
                  size=pointsize,
                  shape=5) +
-      geom_errorbar(aes(ymin=Lower,
+    ggplot2::geom_errorbar(aes(ymin=Lower,
                         ymax=Upper),
                     width=0,
                     size=0.5,
                     position=dodge) +
-    geom_text(aes(x = Test,
+    ggplot2::geom_text(aes(x = Test,
                   y = 1.4,
                   label = Text),
               size = textsize,
               colour="black") +
-      theme(axis.text.x=element_text(size=13,
+    ggplot2::theme(axis.text.x=ggplot2::element_text(size=13,
                                      colour='black'),
-            axis.text.y=element_text(size=13,
+            axis.text.y=ggplot2::element_text(size=13,
                                      colour='black'),
-            axis.title.x =element_text(size=13,
+            axis.title.x =ggplot2::element_text(size=13,
                                        colour='black'),
-            axis.ticks.y = element_line(size=rel(0),
+            axis.ticks.y = ggplot2::element_line(size=ggplot2::rel(0),
                                         color='white'),
-            strip.text.y = element_text(size = 13,
+            strip.text.y = ggplot2::element_text(size = 13,
                                         colour='black',
                                         angle=180),
-            strip.text.x = element_text(size = 13,
+            strip.text.x = ggplot2::element_text(size = 13,
                                         colour='black'),
-            panel.grid.major = element_blank(),
-            panel.background = element_blank(),
-            axis.line.x = element_line(color = 'black'),
-            axis.line.y = element_blank(),
-            strip.background = element_blank(),
+            panel.grid.major = ggplot2::element_blank(),
+            panel.background = ggplot2::element_blank(),
+            axis.line.x = ggplot2::element_line(color = 'black'),
+            axis.line.y = ggplot2::element_blank(),
+            strip.background = ggplot2::element_blank(),
             legend.position ='right',
-            legend.text=element_text(size=13,
+            legend.text=ggplot2::element_text(size=13,
                                      colour='black'),
-            legend.key = element_rect(fill="white"),
-            plot.background = element_rect(fill = "white",
+            legend.key = ggplot2::element_rect(fill="white"),
+            plot.background = ggplot2::element_rect(fill = "white",
                                            colour='white'),
-            panel.spacing = unit(2, "lines")) +
-      scale_y_continuous(name="",
+            panel.spacing = ggplot2::unit(2, "lines")) +
+    ggplot2::scale_y_continuous(name="",
                          limits=c(-0.04, 1.6),
                          breaks=c(0, 0.5, 1, 1.4),
                          expand = c(0.005, 0.005),
@@ -133,9 +147,9 @@ forestplot.nmadas <- function(object,
   }
   #==================================================================================================
   if(RR){
-    sm$RR$RR.Mean <- formattable(sm$RR$Mean, digits = dp, format = "f")
-    sm$RR$RR.Lower <- formattable(sm$RR$Lower, digits = dp, format = "f")
-    sm$RR$RR.Upper <- formattable(sm$RR$Upper, digits = dp, format = "f")
+    sm$RR$RR.Mean <- formattable::formattable(sm$RR$Mean, digits = dp, format = "f")
+    sm$RR$RR.Lower <- formattable::formattable(sm$RR$Lower, digits = dp, format = "f")
+    sm$RR$RR.Upper <- formattable::formattable(sm$RR$Upper, digits = dp, format = "f")
     sm$RR$Text <- paste(sm$RR$RR.Mean, '[', sm$RR$RR.Lower, ', ', sm$RR$RR.Upper, ']', sep='')
     ytext <- max(sm$RR$Upper) + 0.65
     yulim <- max(sm$RR$Upper) + 1 #max RR
@@ -146,68 +160,69 @@ forestplot.nmadas <- function(object,
     sm$RR$Parameter <- rep(c("Relative sensitivity", "Relative specificity"), length.out=nrow(sm$RR))
 
     brks <- c(seq(yllim, max(sm$RR$Upper), max(sm$RR$Upper)/3), max(sm$RR$Upper) + 0.65) #Define where axis ticks appear
-    labels <- c(as.character(formattable(seq(yllim, max(sm$RR$Upper), max(sm$RR$Upper)/3), digits = dp, format = "f")), textlabel) #Define labels for the axis ticks appear
+    labels <- c(as.character(formattable::formattable(seq(yllim, max(sm$RR$Upper), max(sm$RR$Upper)/3), digits = dp, format = "f")),
+                textlabel) #Define labels for the axis ticks appear
 
-    RR.plot <- ggplot(data=sm$RR,
-                      aes(x = as.factor(Test),
+    RR.plot <- ggplot2::ggplot(data=sm$RR,
+                               ggplot2::aes(x = as.factor(Test),
                           y = Mean)) +
-        coord_flip(expand=TRUE) +
-      scale_x_discrete(name="",
+      ggplot2::coord_flip(expand=TRUE) +
+      ggplot2::scale_x_discrete(name="",
                        labels=object@labels) +
 
-      facet_grid(~ Parameter) +
-      geom_point(position=dodge,
+      ggplot2::facet_grid(~ Parameter) +
+      ggplot2::geom_point(position=dodge,
                  size=2,
                  shape=5) +
-      geom_errorbar(aes(ymin=Lower,
+      ggplot2::geom_errorbar(aes(ymin=Lower,
                         ymax=Upper),
                     width=0,
                     size=0.5,
                     position=dodge) +
-      geom_text(aes(x=Test,
+      ggplot2::geom_text(aes(x=Test,
                     y= ytext,
                     label=Text),
                 size=textsize,
                 colour="black")+
-      geom_text(aes(x = 0.75,
+      ggplot2::geom_text(aes(x = 0.75,
                     y = 0.5,
                     label= "Worse"),
                 size=textsize,
                 colour="black")+
-      geom_text(aes(x = 0.75,
+      ggplot2::geom_text(aes(x = 0.75,
                     y = 1.5,
                     label= "Better"),
                 size=textsize,
                 colour="black")+
-      geom_hline(yintercept = 1,
+      ggplot2::geom_hline(yintercept = 1,
                  color = vlinecolour,
                  linetype=2) +
-      theme(axis.text.x=element_text(size=13,
+      ggplot2::theme(axis.text.x=ggplot2::element_text(size=13,
                                      colour='black'),
-            axis.text.y=element_text(size=13,
+            axis.text.y=ggplot2::element_text(size=13,
                                      colour='black'),
-            axis.title.x =element_text(size=13,
+            axis.title.x =ggplot2::element_text(size=13,
                                        colour='black'),
-            axis.ticks.y = element_line(size=rel(0),
+            axis.ticks.y = ggplot2::element_line(size=ggplot2::rel(0),
                                         color='white'),
-            strip.text.y = element_text(size = 13,
+            strip.text.y = ggplot2::element_text(size = 13,
                                         colour='black',
                                         angle=180),
-            strip.text.x = element_text(size = 13,
+            strip.text.x = ggplot2::element_text(size = 13,
                                         colour='black'),
-            panel.grid.major = element_blank(),
-            panel.background = element_blank(),
-            axis.line.x = element_line(color = 'black'),
-            axis.line.y = element_blank(),
-            strip.background = element_blank(),
+            panel.grid.major = ggplot2::element_blank(),
+            panel.background = ggplot2::element_blank(),
+            axis.line.x = ggplot2::element_line(color = 'black'),
+            axis.line.y = ggplot2::element_blank(),
+            strip.background = ggplot2::element_blank(),
             legend.position ='right',
-            legend.text=element_text(size=13, colour='black'),
-            legend.key = element_rect(fill="white"),
-            plot.background = element_rect(fill = "white",
+            legend.text=ggplot2::element_text(size=13, colour='black'),
+            legend.key = ggplot2::element_rect(fill="white"),
+            plot.background = ggplot2::element_rect(fill = "white",
                                            colour='white'),
-            panel.spacing = unit(2, "lines")) +
-      scale_y_continuous(name="",
-                         limits=c(yllim, yulim),
+            panel.spacing = ggplot2::unit(2, "lines")) +
+      ggplot2::scale_y_continuous(name = "",
+                         limits = c(yllim, yulim),
                          breaks = brks,
                          expand = c(0.005, 0.005),
                          labels = labels)

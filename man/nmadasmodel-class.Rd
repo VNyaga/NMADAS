@@ -14,7 +14,7 @@ A nmadasmodel class in the NMADAS package.
 }}
 
 \seealso{
-\link{nmamodel}
+\link{nmadasmodel}
 
 Other nmadas: \code{\link{nmadasdata-class}},
   \code{\link{nmadasfit-class}}

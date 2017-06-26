@@ -6,7 +6,8 @@
 \title{demodata}
 \format{A data frame of 121 observations and 6 variables:
 \describe{
- \item{Study}{Study identifier}
+ \item{study}{Study identifier}
+ \item{Test}{Diagnostic test identifier}
  \item{TP}{Number of true positives}
  \item{FN}{Number of false negatives}
  \item{TN}{Number of true negatives}

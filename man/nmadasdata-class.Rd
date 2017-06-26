@@ -20,7 +20,7 @@ A nmadasdata class in the NMADAS package.
 }}
 
 \seealso{
-\link{cdtamodel}
+\link{nmadasmodel}
 
 Other nmadas: \code{\link{nmadasfit-class}},
   \code{\link{nmadasmodel-class}}

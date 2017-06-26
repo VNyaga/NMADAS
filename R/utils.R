@@ -1,8 +1,8 @@
 #' prepdata
 #' @description Prepare the data
 #' @param data A data-frame with no missing values containg TP, TN, FP, FN, study and test names.
-#' @param SID A string indicating the name of the column with the study identifier.
-#' @param TID A string indicating the name of the column with the test identifier.
+#' @param S.ID A string indicating the name of the column with the study identifier.
+#' @param T.ID A string indicating the name of the column with the test identifier.
 #' @param tp A string indicating the name of the column with the true positives. Default is TP.
 #' @param fn A string indicating the name of the column with the false negatives. Defautl is FN.
 #' @param tn A string indicating the name of the column with the true negatives. Default is TN.

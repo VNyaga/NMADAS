@@ -24,7 +24,7 @@ networkplot.nmadas <- function(data,
      S.ID = S.ID,
      T.ID = T.ID)
 
-  if (grDevices::dev.interactive()) grDevices::dev.new()
+  #if (grDevices::dev.interactive()) grDevices::dev.new()
 
   pcnetmeta::nma.networkplot(
      s.id = SID,
@@ -39,4 +39,4 @@ networkplot.nmadas <- function(data,
 
 
 
-#networkplot.nmadas(data=demodata,S.ID="study", T.ID="Test")
+

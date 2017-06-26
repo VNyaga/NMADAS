@@ -16,6 +16,8 @@ A nmadasfit class in the NMADAS package.
 
 \item{\code{fit}}{an object of class stanfit returned by the function sampling.}
 
+\item{\code{labels}}{A character vector witht the names of the tests evaluated.}
+
 \item{\code{S.ID}}{Study identifier}
 
 \item{\code{T.ID}}{Test identifier}

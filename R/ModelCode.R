@@ -1,4 +1,4 @@
-#' nmamodel
+#' nmadasmodel
 #' @description  Specify the copula based bivariate beta-binomial or alternatively logistic-binomial distribution to fit to the diagnostic data.
 #' @param marginals Use normal marginals on the logit transformed sensitivity and specificity or the beta marginals.
 #' When marginals = 'normal' the following model is fitted:
@@ -35,7 +35,6 @@
 #'  specified copula. The defualt is \code{"uniform(-1, 1)"} for the gaussian and fgm copula,
 #'  \code{"normal(0, 5)"} for the frank copula, ad \code{"cauchy(0, 2.5)"} for the c90 and c270 copula.
 #' @examples
-#' data(demodata)
 #' model1 <-  nmamodel()
 #'
 #' model2 <- nmamodel(copula = 'fgm')
@@ -56,7 +55,7 @@
 #' @author Victoria N Nyaga
 #' @return An object of nmamodel class.
 
-nmamodel.nmadas <- function(
+nmadasmodel <- function(
 				marginals = "beta",
 				copula = "frank",
 				p.omega = NULL,

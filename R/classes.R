@@ -7,7 +7,7 @@
 #' @slot T.ID Test identifier
 #' @slot labels A vector with test labels.
 #' @family nmadas
-#' @seealso \link{cdtamodel}
+#' @seealso \link{nmadasmodel}
 #' @export
 #' @author Victoria N Nyaga \email{victoria.nyaga@outlook.com}
 
@@ -24,7 +24,7 @@ setClass(Class="nmadasdata",
 #' @docType class
 #' @slot model Model specification in a character format.
 #' @family nmadas
-#' @seealso \link{nmamodel}
+#' @seealso \link{nmadasmodel}
 #' @export
 #' @author Victoria N Nyaga \email{victoria.nyaga@outlook.com}
 
@@ -39,6 +39,7 @@ setClass(Class="nmadasmodel",
 #' @slot data data A data-frame with no missing values containg TP, TN, FP, FN, study and test names.
 #' @slot comparator Name of comparator test.
 #' @slot fit an object of class stanfit returned by the function sampling.
+#' @slot labels A character vector witht the names of the tests evaluated.
 #' @slot S.ID Study identifier
 #' @slot T.ID Test identifier
 #' @family nmadas

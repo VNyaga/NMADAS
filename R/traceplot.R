@@ -7,7 +7,11 @@
 #' \dontrun{
 #' data(demodata)
 #'
-#' fit1 <- fit(S.ID='study',
+#' frank <- nmadasmodel()
+#'
+#' fit1 <- fit(
+#'         nma.model = frank,
+#'         S.ID='study',
 #'			   T.ID = 'Test',
 #'			   tp = 'TP',
 #'			   tn = 'TN',
@@ -25,12 +29,13 @@
 
 #' @author Victoria N Nyaga
 
-traceplot.nmadas <- function(x, pars=c('MU'), colourset = "mix-red-brightblue", ...){
+traceplot.nmadasfit <- function(x, pars=c('MU'), colourset = "mix-red-brightblue", ...){
 
   draws <- as.array(x@fit, pars = pars, ...)
   bayesplot::color_scheme_set(colourset)
   g <- bayesplot::mcmc_trace(draws)
   if (grDevices::dev.interactive()) grDevices::dev.new()
-  print(g)	}
+  print(g)
+  }
 
 

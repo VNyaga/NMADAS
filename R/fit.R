@@ -3,10 +3,12 @@
 #' @param nma.model A model written in the stan format from \link{nmamodel}. If the model is not specified,
 #' a hierachical beta-binomial model with frank copula is fitted.
 #' @param data A data-frame with no missing values containg TP, TN, FP, FN, SID and TID.
-#' @param SID A string indicating the name of the column with the study identifier.
-#' @param TID A string indicating the name of the column with the test identifier.
+#' @param S.ID A string indicating the name of the column with the study identifier.
+#' @param T.ID A string indicating the name of the column with the test identifier.
 #' @param tp A string indicating the name of the columnt with the true positives.
 #' @param fn A string indicating the name of the columnt with the false negatives.
+#' @param Comparator The name of the comparator test when relative sensitivity and specificity are required. By default the first test as
+#' arranged alphabetically is the comparator.
 #' @param tn A string indicating the name of the columnt with the true negatives.
 #' @param fp A string indicating the name of the columnt with the false positives.
 #' @param chains A positive numeric value specifying the number of chains, default is 3.
@@ -22,7 +24,10 @@
 #' \dontrun{
 #' data(demodata)
 #'
-#' fit1 <- fit(S.ID='study',
+#' modelcode <- nmadasmodel()
+#'
+#' fit1 <- fit(nma.model = modelcode
+#'         S.ID='study',
 #'			   T.ID = 'Test',
 #'			   tp = 'TP',
 #'			   tn = 'TN',
@@ -34,7 +39,7 @@
 #'             thin = 5,
 #'             seed = 3)
 #'
-#' modelcode <- nmamodel.nmadas(copula = "fgm", marginals = "beta")
+#' modelcode <- nmadasmodel(copula = "fgm", marginals = "beta")
 #'
 #' fit2 <- fit(nma.model = modelcode,
 #'			   S.ID='study',
@@ -64,8 +69,8 @@
 #'@importFrom rstan sampling
 #'@importFrom rstan stan_model
 #' @author Victoria N Nyaga <victoria.nyaga@outlook.com>
-fit.nmadas <- function(
-  nma.model = NULL,
+fit.nmadasmodel <- function(
+  nma.model,
   data,
   S.ID,
   T.ID,
@@ -116,13 +121,7 @@ fit.nmadas <- function(
       Study = data$SID,
       CIndex = CIndex)
 
-    if(is.null(nma.model)){
-		model <- nmamodel() }
-	else {
-		model <- nma.model
-	}
-
-	stanmodel <- rstan::stan_model(model_code = model@modelcode)
+	stanmodel <- rstan::stan_model(model_code = nma.model@model)
 
   mod <- rstan::sampling(object = stanmodel,
            data=datalist,

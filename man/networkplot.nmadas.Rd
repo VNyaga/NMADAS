@@ -5,7 +5,7 @@
 \title{Network plot}
 \usage{
 networkplot.nmadas(data, S.ID, T.ID, alphabetic = FALSE, edge.col = "grey",
-  c = "orange", ...)
+  node.col = "orange", ...)
 }
 \arguments{
 \item{data}{A data.frame with atleast two variables i.e study and test identifier.}

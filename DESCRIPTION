@@ -6,7 +6,7 @@ Maintainer: The package maintainer <victoria.nyaga@outlook.com>
 Description: Network meta-analysis procedure combining and summarising direct and indirect evidence from 
     independent studies assessing the diagnostic accuracy of different tests for the same 
     disease condition.  
-License: License: GPL-2
+License: GPL-2
 Encoding: UTF-8
 #Date: 2017-06-15 #yyyy-mm-dd
 Authors@R: person("Victoria", "N Nyaga", email="victoria.nyaga@outlook.com", role=c("aut", "cre"))
@@ -28,7 +28,8 @@ Suggests:
     Rmisc,
     httr,
     bayesplot,
-    rmarkdown
-#VignetteBuilder: knitr
+    rmarkdown,
+    formattable,
+    pcnetmeta
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
